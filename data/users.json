@@ -1,0 +1,31 @@
+[
+    {
+        "id": "1",
+        "name": "Robert",
+        "email": "robert@email.com",
+        "password" : "azerty",
+        "role" : "ROLE_ADMIN"
+    },
+    
+    {
+        "id": "2",
+        "name": "Carine",
+        "email": "carine@email.com",
+        "password" : "yuiop",
+        "role" : "ROLE_USER"
+    },
+    {
+        "id": "3",
+        "name": "Albert",
+        "email": "albert@email.com",
+        "password" : "jgldmsm",
+        "role" : "ROLE_USER"
+    },
+    {
+        "id": "4",
+        "name": "Zoé",
+        "email": "zoe@email.com",
+        "password" : "djdieznaz",
+        "role" : "ROLE_ADMIN"
+    }
+]
