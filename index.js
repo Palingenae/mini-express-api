@@ -13,6 +13,8 @@ app.get('/', (request, response) => {
 
 app.post("/login", securityController.logIn);
 
+app.post("/ping", securityController.ping);
+
 app.listen(port, () => {
     console.log(`L'application écoute sur le port ${port}`);
 });

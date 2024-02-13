@@ -1,5 +1,8 @@
 const users = require('../../data/users.json');
 const jwt = require('jsonwebtoken');
+const env = require('dotenv').config();
+
+const apiKey = process.env.APP_SECRET;
 
 module.exports = {
     logIn: (request, response) => {
@@ -14,7 +17,7 @@ module.exports = {
 
             if (user) {
                 if (user.password === payload.password) {
-                    let token = jwt.sign({ email: user.email, role: user.role }, process.env.APP_SECRET);
+                    let token = jwt.sign({ email: user.email, role: user.role }, apiKey);
                     
                     response.send(token); 
                 } else {
@@ -25,6 +28,27 @@ module.exports = {
             }
         } else {
             response.sendStatus(422)
+        }
+    },
+
+    ping: (request, response) => {
+        const receivedToken = request.headers.authorization.replace("Bearer ", "");
+
+        if (!jwt.decode(receivedToken)) {
+            response.sendStatus(401);
+            console.info("\x1b[36m", "Ici j'ai envie de créer un joli message d'erreur qui ne donne pas trop de détails, car si quelqu'un a un accès au serveur, c'est possible de faire du reverse engineering avec la stack-trace non ? Ou alors je vais trop loin ?", "\x1b[0m")
+        }
+
+        let payload = jwt.verify(receivedToken, apiKey);
+
+        const checkedUser = users.find((user) => {
+            return payload["email"] === user.email;
+        })
+
+        if (checkedUser) {
+            response.status(200).send(payload);
+        } else {
+            response.sendStatus(401);
         }
     }
 };
