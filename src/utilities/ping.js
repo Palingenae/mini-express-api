@@ -17,6 +17,9 @@ module.exports = {
             return authenticatedUser['email'] === user.email;
         })
 
-        response.status(200).send(checkedUser);
+        response.status(200).send({
+            email: checkedUser.email,
+            role: checkedUser.role
+        });
     }
 }
