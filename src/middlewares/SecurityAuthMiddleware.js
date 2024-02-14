@@ -47,5 +47,5 @@ module.exports = {
         const authenticatedUser = jwt.decode(receivedToken, apiKey);
 
         return authenticatedUser;
-    }
+    },
 };

@@ -15,7 +15,7 @@ app.get('/', (request, response) => {
     response.send('Hello there');
 });
 
-app.post("/ping", ping.ping);
+app.get("/ping", ping.ping);
 
 app.get('/partners/:id', partnersController.getOnePartner)
 
