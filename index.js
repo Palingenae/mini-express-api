@@ -1,24 +1,22 @@
 const express = require('express');
 
-const securityController = require('./src/controllers/securityController');
+const SecurityAuthMiddleware = require('./src/middlewares/SecurityAuthMiddleware');
 const partnersController = require('./src/controllers/partnersController');
+const ping = require('./src/utilities/ping');
 
 const app = express();
 const port = process.env.port || 3000;
 
 app.use(express.json());
 
-// Seulement si authentifié
+app.post("/login", SecurityAuthMiddleware.logIn);
+
 app.get('/', (request, response) => {
     response.send('Hello there');
 });
 
-app.post("/login", securityController.logIn);
+app.post("/ping", ping.ping);
 
-// Seulement si authentifié
-app.post("/ping", securityController.ping);
-
-// Seulement si authentifié
 app.get('/partners/:id', partnersController.getOnePartner)
 
 app.listen(port, () => {

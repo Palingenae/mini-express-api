@@ -32,26 +32,20 @@ module.exports = {
         }
     },
 
-    ping: (request, response) => {
-        /* Il y a certainement des choses à faire en plus ici, mais je ne sais pas ce qui pourrait être pertinent. */
+    checkAuth: (receivedToken) => {
+        const authenticated = jwt.verify(receivedToken, apiKey);
 
-        const receivedToken = request.headers.authorization.replace("Bearer ", "");
-
-        if (!jwt.decode(receivedToken)) {
-            response.sendStatus(401);
-            console.info("\x1b[36m", "Ici j'ai envie de créer un joli message d'erreur qui ne donne pas trop de détails, car si quelqu'un a un accès au serveur, c'est possible de faire du reverse engineering avec la stack-trace non ? Ou alors je vais trop loin ?", "\x1b[0m")
-        }
-
-        let payload = jwt.verify(receivedToken, apiKey);
-
-        const checkedUser = users.find((user) => {
-            return payload["email"] === user.email;
-        })
-
-        if (checkedUser) {
-            response.status(200).send(payload);
+        if (authenticated) {
+            return true;
         } else {
-            response.sendStatus(401);
+            console.info("\x1b[36m", "Ici j'ai envie de créer un joli message d'erreur qui ne donne pas trop de détails, car si quelqu'un a un accès au serveur, c'est possible de faire du reverse engineering avec la stack-trace non ? Ou alors je vais trop loin ?", "\x1b[0m")
+            return false;
         }
+    },
+
+    getAuthenticatedUser: (receivedToken) => {
+        const authenticatedUser = jwt.decode(receivedToken, apiKey);
+
+        return authenticatedUser;
     }
 };
