@@ -11,9 +11,10 @@ module.exports = {
         if (payload.hasOwnProperty('email') &&
             payload.hasOwnProperty('password'))
         {
-            const user = users.find((user) => {
+
+        const user = users.find((user) => {
             return user.email === payload.email
-            })
+        })
 
             if (user) {
                 if (user.password === payload.password) {
@@ -32,6 +33,8 @@ module.exports = {
     },
 
     ping: (request, response) => {
+        /* Il y a certainement des choses à faire en plus ici, mais je ne sais pas ce qui pourrait être pertinent. */
+
         const receivedToken = request.headers.authorization.replace("Bearer ", "");
 
         if (!jwt.decode(receivedToken)) {

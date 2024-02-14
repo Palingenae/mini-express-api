@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Company A",
+        "colors": ["Red", "Yellow"]
+    },
+    {
+        "id": 2,
+        "name": "Company B",
+        "colors": ["Green", "Yellow"]
+    },
+    {
+        "id": 3,
+        "name": "Company C",
+        "colors": ["Green", "Green"]
+    }
+]
